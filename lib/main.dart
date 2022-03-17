@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter_course/app/sign_in/sign_in_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -9,6 +10,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      title: 'Time Tracker',
+      theme: ThemeData(
+        primarySwatch: Colors.indigo,
+      ),
+      home: const SignInPage(),
+    );
   }
 }
