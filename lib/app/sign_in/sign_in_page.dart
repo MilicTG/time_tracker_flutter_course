@@ -6,9 +6,16 @@ import 'package:time_tracker_flutter_course/app/sign_in/social_sign_in_button.da
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
 
+  void _signInWithGoogle() {
+    // TODO: Auth with Google
+  }
+
   Future<void> _signInAnonymously() async {
-    final userCredentials = await FirebaseAuth.instance.signInAnonymously();
-    print('${userCredentials.user?.uid}');
+    try {
+      final userCredentials = await FirebaseAuth.instance.signInAnonymously();
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -92,9 +99,5 @@ class SignInPage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _signInWithGoogle() {
-    // TODO: Auth with Google
   }
 }
