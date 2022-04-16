@@ -31,15 +31,28 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_user == null) {
-      return SignInPage(
-        auth: widget.auth,
-        onSignIn: _updateUser,
-      );
-    }
-    return HomePage(
-      auth: widget.auth,
-      onSignOut: () => _updateUser(null),
+    return StreamBuilder<User?>(
+      stream: widget.auth.authStateChanges(),
+      builder: (context, snapshoot) {
+        if (snapshoot.connectionState == ConnectionState.active) {
+          final user = snapshoot.data;
+          if (user == null) {
+            return SignInPage(
+              auth: widget.auth,
+              onSignIn: _updateUser,
+            );
+          }
+          return HomePage(
+            auth: widget.auth,
+            onSignOut: () => _updateUser(null),
+          );
+        }
+        return const Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }
